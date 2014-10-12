@@ -1,4 +1,4 @@
-coursera-machine-learning
+coursera-solutions
 =========================
 
-Coursera ML class assignment solutions
+Coursera class assignment solutions
