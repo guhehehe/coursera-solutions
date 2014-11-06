@@ -62,10 +62,10 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
-% Computing the hiden layer results
+% Calculating the hiden layer results
 layer2 = sigmoid([ones(m, 1) X] * Theta1');
 
-% Computing the predictions
+% Calculating the predictions
 n = size(layer2, 1);
 predicts = sigmoid([ones(n, 1) layer2] * Theta2');
 
@@ -74,8 +74,14 @@ p = size(predicts, 2);
 Y = ones(m, 1) * [1:p] == y;
 
 % Calculating the cost
-q = size(Y, 2)
+q = size(Y, 2);
 J = sum(sum(Y .* log(predicts) + (ones(n, q) - Y) .* log(ones(n, q) - predicts))) / -m;
+
+% Calculating the regularized cost
+k = size(Theta1, 2);
+t = size(Theta2, 2);
+reg_term = lambda * (sum(sum(Theta1(:, 2:k) .^ 2)) + sum(sum(Theta2(:, 2:t) .^ 2))) / 2 / m;
+J += reg_term;
 
 % -------------------------------------------------------------
 
