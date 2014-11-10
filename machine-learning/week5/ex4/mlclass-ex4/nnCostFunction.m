@@ -62,6 +62,9 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% -------------------------------------------------------------
+% Part 1:
+% -------------------------------------------------------------
 % Calculating the hiden layer results
 layer2 = sigmoid([ones(m, 1) X] * Theta1');
 
@@ -82,6 +85,27 @@ k = size(Theta1, 2);
 t = size(Theta2, 2);
 reg_term = lambda * (sum(sum(Theta1(:, 2:k) .^ 2)) + sum(sum(Theta2(:, 2:t) .^ 2))) / 2 / m;
 J += reg_term;
+
+% -------------------------------------------------------------
+% Part 2:
+% -------------------------------------------------------------
+% Calculating forward propragation
+a1 = [ones(m, 1) X]; 
+
+z2 = a1 * Theta1'; 
+a2 = [ones(m, 1) sigmoid(z2)];
+
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
+
+delta3 = a3 - Y;
+delta2 = delta3 * Theta2 .* [zeros(m, 1) sigmoidGradient(z2)];
+
+Delta1 = delta2'(2:end, :) * a1;
+Delta2 = delta3' * a2;
+
+Theta1_grad = Delta1 / m + lambda * [zeros(hidden_layer_size, 1) Theta1(:, 2:end)] / m;
+Theta2_grad = Delta2 / m + lambda * [zeros(num_labels, 1) Theta2(:, 2:end)] / m;
 
 % -------------------------------------------------------------
 
