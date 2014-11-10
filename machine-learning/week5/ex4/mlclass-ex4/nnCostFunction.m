@@ -74,7 +74,7 @@ predicts = sigmoid([ones(n, 1) layer2] * Theta2');
 
 % Recode training data results using logical arrays
 p = size(predicts, 2);
-Y = ones(m, 1) * [1:p] == y;
+Y = (ones(m, 1) * [1:p]) == (y * ones(1, p));
 
 % Calculating the cost
 q = size(Y, 2);
